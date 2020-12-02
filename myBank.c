@@ -7,7 +7,7 @@ void openAccount(double amount){//opening new account
 	if( accounts[i][0]==0){
 	accounts[i][0]=1;
 	accounts[i][1]=amount;
-	printf("The new Bank Account number is: %i\n",i+901);			  
+	printf("New account number is: %i\n",i+901);			  
 	break;
 		}		
 	}
@@ -17,12 +17,12 @@ void openAccount(double amount){//opening new account
 }
 
 void balance(int acc_num){ //return the balance
-	if((acc_num<901)&&(acc_num>950)){
+	if((acc_num<901)||(acc_num>950)){
 	printf("There is no such account in the database\n");
 	 return;
 }
 	if(accounts[acc_num-901][0]==1){     
-	printf("Balance is: %0.2lf\n", accounts[acc_num-901][1]); 
+	printf("The balance of account number %d is: %0.2lf\n",acc_num,accounts[acc_num-901][1]); 
 	}
 	else{
 	printf("This account is closed\n");
@@ -30,12 +30,12 @@ void balance(int acc_num){ //return the balance
 }
 
 void deposit(int acc_num ,double amount){ //return the new balance
-	if(((acc_num<901)&&(acc_num>950))||(amount<= 0)){
+	if(((acc_num<901)||(acc_num>950))||(amount<= 0)){
 	printf("There is no such account in the database\n /cant be enterd negtive amount\n");
 	return;
 }	
 	if(accounts[acc_num-901][0]==1){	    
-	 printf("The new balance after the deposit is:	 %0.2lf\n", (accounts[acc_num-901][1]+amount)); 
+	 printf("TThe new balance is: %0.2lf\n", (accounts[acc_num-901][1]+amount)); 
 	 accounts[acc_num-901][1]=accounts[acc_num-901][1]+amount ;
 	}
 	else{
@@ -44,12 +44,12 @@ void deposit(int acc_num ,double amount){ //return the new balance
 }
 
 void withdraw(int acc_num ,double amount){//return the new balance
-	if(((acc_num<901)&& (acc_num>950))||(amount<=0)){
+	if(((acc_num<901)||(acc_num>950))||(amount<=0)){
 printf("There is no such account in the database\n can't be enterd negtive amount\n");
 	return;
 }
 if((accounts[acc_num-901][0]==1)&&((accounts[acc_num-901][1]-amount)>= 0)){	    
-printf("The new balance after the withdraw is:%0.2lf\n",(accounts[acc_num-901][1] - amount)); 
+printf("The new balance is: %0.2lf\n",(accounts[acc_num-901][1] - amount)); 
 	 accounts[acc_num-901][1] = accounts[acc_num-901][1]-amount;
 	}
 	else{
@@ -63,8 +63,9 @@ void closeAccount(int acc_num){// close an open account
 		 	return;
 	}
 	if (accounts[acc_num-901][0]==1){
-	accounts[acc_num-901][0]==0;
-	accounts[acc_num-901][1]==0;
+	accounts[acc_num-901][0]=0;
+	accounts[acc_num-901][1]=0;
+	printf("Closed account number %d\n",acc_num); 
 }
 	else{
 	printf("This account is alreay closed.\n");

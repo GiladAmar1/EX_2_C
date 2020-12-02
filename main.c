@@ -3,58 +3,113 @@
 int main()
 {
 	char opt;
-   	int num =0;
+   	int num=0;
    	int amount;
    	double interest;
    	int num_acc;
+   	int flag1;
+   	int flag2;
    	do
    	{
-	printf("Option:\nO-Open new account\n");
-	printf("B-Clarification of account balance\nD-Deposit amount into account\n");
-	printf("W-Withdrawing money from acount\nC-Closing a current account\nI-Adding interest to open accounts \n");	
-   	printf("P-Print all open accounts and the balance in them \nE-Closing all accounts and exiting the program:\n");	
+	printf("Please choose a transaction type:\nO-Open Account\n");
+	printf("B-Balance Inquiry\nD-DDeposit\n");
+	printf("W-Withdrawal\nC-Close Account\nI-Interest\n");	
+   	printf("P-Print\nE-Exit\n");	
     
-	scanf(" %c", &opt);	
+	scanf("%c", &opt);	
    	switch(opt)
     {
         case 'O':
-        printf("Enter initial amount:  \n");
-        scanf("%d",&amount);
+        printf("Please enter amount for deposit:");
+        flag1=scanf("%d",&amount);
+        if(flag1==0)
+        {printf("Failed to read the amount\n");
+        break;
+        }
+        if(amount<=0){printf("Failed to read the amount\n");
+        break;
+        }
         openAccount(amount);   
         break;
         
         
         case 'B':
-        printf("Enter an account number:  \n");
-        scanf("%i", &num_acc);
+        printf("Please enter account number:\n");
+        flag2=scanf("%i", &num_acc);
+        if(flag2==0)
+        {printf("Failed to read the account number\n");
+        break;
+        }
+        if(num_acc<=0){printf("Failed to read the account number\n");
+        break;
+        }
         balance(num_acc);
         break;
        
        
         case 'D':
-        printf("Enter account number and deposit amount:  \n");
-        scanf("%i %d",&num_acc,&amount);
+        printf("Please enter the amount to deposit: ");
+        flag1=scanf("%d",&amount);
+        flag2=scanf("%i", &num_acc);
+        if(flag1==0)
+        {printf("Failed to read the amount\n");
+        break;
+        }
+        if((flag2||num_acc<=0)==0)
+        {printf("Failed to read the account number\n");
+        break;
+        }
+        if(amount<=0){printf("Cannot deposit a negative amount\n");
+        break;
+        }
         deposit(num_acc,amount);
             break;
         
         
         case 'W':
-        printf("Enter account number and withdrawal amount:  \n");
-        scanf("%i%d",&num_acc,&amount);
+        printf("Please enter account number: ");
+        flag2=scanf("%i", &num_acc);
+         printf("Please enter the amount to withdraw: ");
+        flag1=scanf("%d",&amount);
+        if(flag1==0)
+        {printf("Failed to read the amount\n");
+        break;
+        }
+        if((flag2||num_acc<=0)==0)
+        {printf("Failed to read the account number\n");
+        break;
+        }
+        if(amount<=0){printf("Cannot withdraw a negative amount\n");
+        break;
+        }
         withdraw(num_acc,amount);
             break;
        
        
         case 'C':
- 		printf("Enter an account you would like to close:  \n");
-        scanf("%i",&num_acc);
+ 		printf("Please enter account number: ");
+        flag2=scanf("%i", &num_acc);
+        if(flag2==0)
+        {printf("Failed to read the amount\n");
+        break;
+        }
+        if(num_acc<=0){printf("Failed to read the account number\n");
+        break;
+        }
         closeAccount(num_acc);
         break;
        
        
         case 'I':
-        printf("Enter interest on all accounts:  \n");
-        scanf("%le",&interest);
+        printf("Please enter interest rate: ");
+        flag2= scanf("%le",&interest);
+        if(flag2==0)
+        {printf("Failed to read the amount\n");
+        break;
+        }
+        if(num_acc<=0){printf("Invalid interest rate\n");
+        break;
+        }
         addDependInterest(interest);   
         break;
        
@@ -72,7 +127,7 @@ int main()
 
        
         default:
-        printf("Error! Invalid action, Please try again");
+        printf("Error! Invalid action, Please try again\n");
    		break;
    		 }	
    }  while (num==0);
